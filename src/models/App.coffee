@@ -5,4 +5,43 @@ class window.App extends Backbone.Model
     @set 'deck', deck = new Deck()
     @set 'playerHand', deck.dealPlayer()
     @set 'dealerHand', deck.dealDealer()
+    @set 'score', score = new Score()
+
+    # @listenTo @get('playerHand'), 'busted', @loseGame
+    @get('playerHand').on 'busted', @loseGame, @
+    @get('playerHand').on 'blackjack', @winGame, @
+
+
+  resetDeck: ->
+    # @set 'deck', deck = new Deck()
+    debugger
+    @set 'playerHand', @get('deck').dealPlayer()
+    @set 'dealerHand', @get('deck').dealDealer()
+    console.log(@get('playerHand'))
+
+
+  winGame: ->
+  # Notification that player got blackjack
+    console.log('you win!')
+    # Update Score
+    bet = @get('score').get('bet')
+    purse = @get('score').get('purse')
+    @get('score').set 'purse', purse + bet
+    # Game to be reset
+    @resetDeck()
+
+
+
+  loseGame: ->
+    # Notification that player busted
+    console.log('you lose!')
+    # Update Score
+    bet = @get('score').get('bet')
+    purse = @get('score').get('purse')
+    @get('score').set 'purse', purse - bet
+    # Game to be reset
+    @resetDeck()
+
+
+
 

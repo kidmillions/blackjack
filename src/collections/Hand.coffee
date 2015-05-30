@@ -4,7 +4,12 @@ class window.Hand extends Backbone.Collection
   initialize: (array, @deck, @isDealer) ->
 
   hit: ->
+    # debugger
     @add(@deck.pop())
+    @blackjack() if Math.max(@scores()[0], @scores()[1]) == 21
+    @busted() if @minScore() > 21
+
+
 
   hasAce: -> @reduce (memo, card) ->
     memo or card.get('value') is 1
@@ -20,4 +25,12 @@ class window.Hand extends Backbone.Collection
     # when there is an ace, it offers you two scores - the original score, and score + 10.
     [@minScore(), @minScore() + 10 * @hasAce()]
 
+  busted: ->
+    @trigger('busted', @)
+    console.log('busted')
+    # if score is higher than 21
+    #   trigger an event on collection, 'busted'
 
+  blackjack: ->
+    @trigger('blackjack', @)
+    console.log('blackjack')
