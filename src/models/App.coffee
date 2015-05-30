@@ -70,7 +70,8 @@ class window.App extends Backbone.Model
         userScore = if maxUserScore < 21 then maxUserScore else userHand.scores[0]
         if userScore > dealerHandScore then @winGame() else if userScore == dealerHandScore then @pushGame() else @loseGame()
 
-
+    split: ->
+        @set 'playerHand2', new Hand [@get('playhand2').pop()], @
 
 
 

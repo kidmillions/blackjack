@@ -52,5 +52,7 @@ class window.Hand extends Backbone.Collection
 
 
   isSplit: ->
-    @at(0).get 'rank' == @at(1).get 'rank'
+    console.log(@at(0).get('rank') == @at(1).get('rank'))
+    @at(0).get('rank') == @at(1).get('rank')
+
 

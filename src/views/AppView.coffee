@@ -8,7 +8,7 @@ class window.AppView extends Backbone.View
   events:
     'click .hit-button': -> @model.get('playerHand').hit()
     'click .stand-button': -> @model.get('playerHand').stand()
-    'click .split-button': -> @model.get('playerHand').split()
+    'click .split-button': -> @model.split()
 
   initialize: ->
     @model.on('change', @render, @)
