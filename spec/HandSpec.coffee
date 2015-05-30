@@ -48,7 +48,7 @@ describe 'hand', ->
 
     xit "should automatically call blackjack if hand value is 21", ->
       score = userHand.minScore()
-      spy = sinon.spy(userHand.busted)
+      spy = sinon.spy(userHand.blackjack)
       userHand.add(card)
       console.log(userHand.minScore())
       assert.strictEqual spy.callCount, 1
