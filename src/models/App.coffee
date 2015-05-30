@@ -14,8 +14,7 @@ class window.App extends Backbone.Model
 
   resetDeck: ->
     # @set 'deck', deck = new Deck()
-    debugger
-    @set 'playerHand', @get('deck').dealPlayer()
+    @get('playerHand').getNewCards()
     @set 'dealerHand', @get('deck').dealDealer()
     console.log(@get('playerHand'))
 
