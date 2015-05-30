@@ -7,16 +7,23 @@ class window.App extends Backbone.Model
         @set 'dealerHand', deck.dealDealer()
         @set 'scoreBoard', scoreBoard = new ScoreBoard()
 
-        # @listenTo @get('playerHand'), 'busted', @loseGame
-        @get('dealerHand').on 'blackjack', @loseGame, @
-        @get('dealerHand').on 'busted', @winGame, @
-        @get('playerHand').on 'busted', @loseGame, @
-        @get('playerHand').on 'blackjack', @winGame, @
-        @get('playerHand').on 'stand', @get('dealerHand').dealerPlay, @get('dealerHand')
-        @get('dealerHand').on 'stand', @compareScores, @
+        @get('dealerHand').on 'all', @playerEvents, @
+        @get('playerHand').on 'all', @playerEvents, @
         @get('deck').on 'shuffle', @get('deck').makeNewDeck, @get('deck')
         @get('scoreBoard').on 'outOfMoney', @loseLife, @
 
+
+    playerEvents: (event, hand) ->
+        switch event
+            when 'busted' then @loseGame()
+            when 'blackjack' then @winGame()
+            when 'stand' then @get('dealerHand').dealerPlay()
+
+    dealerEvents: (event, hand) ->
+        switch event
+            when 'busted' then @winGame()
+            when 'blackjack' then @loseGame()
+            when 'stand' then @compareScores()
 
     resetHands: ->
         # @set 'deck', deck = new Deck()
