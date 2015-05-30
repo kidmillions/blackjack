@@ -8,6 +8,7 @@ describe 'app', ->
   card4 = null
   card10 = null
   spy = sinon.spy Hand.prototype, 'getNewCards'
+  dealerSpy = sinon.spy Hand.prototype, 'dealerPlay'
   winGame = null
   loseGame = null
 
@@ -50,6 +51,7 @@ describe 'app', ->
       assert.strictEqual currentScore+bet, app.get('scoreBoard').get('purse')
 
 
+
   describe 'Losing', ->
     it "should reset the user's hand", ->
       loseGame()
@@ -62,12 +64,15 @@ describe 'app', ->
       assert.strictEqual currentScore-bet, app.get('scoreBoard').get('purse')
 
 
+  describe 'Dealer', ->
+    it "should invoke the dealer to take its turn when the player stands", ->
+      userHand.stand()
+      assert.strictEqual dealerSpy.called, true
+
+
 
 # Compares hand values and designates winner
 # Triggers when Player Busts
 # Triggers when Player loses to dealer
 # Triggers when Player Wins
-# Adds bet to Purse on win
-# Subtracts bet from purse on loss
-# Starts a new game
-# resets the deck when the game is over
+

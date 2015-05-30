@@ -7,6 +7,9 @@ class window.Hand extends Backbone.Collection
   hit: ->
     @add(@deck.pop())
 
+  stand: ->
+    @trigger('stand', @)
+
 
   checkValue: ->
     @blackjack() if Math.max(@scores()[0], @scores()[1]) == 21
@@ -42,3 +45,8 @@ class window.Hand extends Backbone.Collection
     #deal new cards when current deck
     @hit()
     @hit()
+
+  dealerPlay: ->
+    debugger
+    if(@isDealer) then array.first().set('revealed', true)
+

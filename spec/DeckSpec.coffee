@@ -7,6 +7,7 @@ describe 'deck', ->
   beforeEach ->
     deck = new Deck()
     hand = deck.dealPlayer()
+    dealer = deck.dealDealer()
 
   describe 'hit', ->
     it 'should give the last card from the deck', ->
@@ -14,6 +15,9 @@ describe 'deck', ->
       assert.strictEqual deck.last(), hand.hit()
       assert.strictEqual deck.length, 49
 
+  describe 'stand', ->
+    #force the dealer to start turn
+    #
 
 describe "deck constructor", ->
 

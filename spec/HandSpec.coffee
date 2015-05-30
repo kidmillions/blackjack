@@ -8,6 +8,7 @@ describe 'hand', ->
   card8 = null
   card10 = null
   card4 = null
+  flip = null
 
   beforeEach ->
     deck = new Deck()
@@ -35,10 +36,12 @@ describe 'hand', ->
     it 'should have the first card flipped', ->
       assert.strictEqual dealerHand.first().get('revealed'), false
 
-    it 'should sum the value of the cards in the hand', ->
-      score = dealerHand.minScore()
-      dealerHand.add(card9)
-      assert.strictEqual dealerHand.minScore() - score, card9.get('value')
+    it 'should reveal its card when the dealer start its turn', ->
+      userHand.stand()
+      flip = dealerHand.first().get('revealed')
+      assert.strictEqual flip, true
+
+
 
 
   describe 'player hand', ->

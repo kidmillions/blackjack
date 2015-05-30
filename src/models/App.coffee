@@ -10,6 +10,7 @@ class window.App extends Backbone.Model
     # @listenTo @get('playerHand'), 'busted', @loseGame
     @get('playerHand').on 'busted', @loseGame, @
     @get('playerHand').on 'blackjack', @winGame, @
+    @get('playerHand').on 'stand', @get('dealerHand').dealerPlay, @
 
 
   resetDeck: ->
