@@ -4,15 +4,27 @@ describe 'hand', ->
   deck = null
   dealerHand = null
   userHand = null
-  card = null
+  card9 = null
+  card8 = null
+  card10 = null
+  card4 = null
 
   beforeEach ->
     deck = new Deck()
     userHand = deck.dealPlayer()
     dealerHand = deck.dealDealer()
-    card = new Card
+    card9 = new Card
       rank: 9
       suit: 1
+    card8 = new Card
+      rank: 8
+      suit: 1
+    card4 = new Card
+      rank: 4
+      suit: 3
+    card10 = new Card
+      rank: 10
+      suit: 2
 
 
   describe 'dealer hand', ->
@@ -25,8 +37,8 @@ describe 'hand', ->
 
     it 'should sum the value of the cards in the hand', ->
       score = dealerHand.minScore()
-      dealerHand.add(card)
-      assert.strictEqual dealerHand.minScore() - score, card.get('value')
+      dealerHand.add(card9)
+      assert.strictEqual dealerHand.minScore() - score, card9.get('value')
 
 
   describe 'player hand', ->
@@ -36,24 +48,26 @@ describe 'hand', ->
 
     it 'should sum the value of the cards in the hand', ->
       score = userHand.minScore()
-      userHand.add(card)
-      assert.strictEqual userHand.minScore() - score, card.get('value')
+      userHand.add(card9)
+      assert.strictEqual userHand.minScore() - score, card9.get('value')
 
-    xit "should automatically bust if hand value is over 21", ->
+    it "should automatically bust if hand value is over 21", ->
       score = userHand.minScore()
-      spy = sinon.spy(userHand.busted)
-      userHand.add(card)
+      spy = sinon.spy Hand.prototype, 'busted'
+      userHand.add(card9)
+      userHand.add(card8)
+      userHand.add(card10)
       console.log(userHand.minScore())
-      assert.strictEqual spy.callCount, 1
+      assert.strictEqual spy.called, true
 
-    xit "should automatically call blackjack if hand value is 21", ->
+    it "should automatically call blackjack if hand value is 21", ->
       score = userHand.minScore()
-      spy = sinon.spy(userHand.blackjack)
-      userHand.add(card)
+      spy = sinon.spy Hand.prototype, 'blackjack'
+      userHand.reset()
+      userHand.add(card9)
+      userHand.add(card8)
+      userHand.add(card4)
       console.log(userHand.minScore())
-      assert.strictEqual spy.callCount, 1
-      # return bus if score > 21
-      # return bust if card.get('value') > 21
+      assert.strictEqual spy.called, true
 
 
-# should call 'blackjack!' if hand value is 21

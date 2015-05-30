@@ -2,9 +2,13 @@ class window.Hand extends Backbone.Collection
   model: Card
 
   initialize: (array, @deck, @isDealer) ->
+    @on 'add', @checkValue, @
 
   hit: ->
     @add(@deck.pop())
+
+
+  checkValue: ->
     @blackjack() if Math.max(@scores()[0], @scores()[1]) == 21
     @busted() if @minScore() > 21
 
@@ -25,7 +29,6 @@ class window.Hand extends Backbone.Collection
   busted: ->
     console.log(@minScore())
     @trigger('busted', @)
-    console.log('busted')
     # if score is higher than 21
     #   trigger an event on collection, 'busted'
 

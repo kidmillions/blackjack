@@ -33,7 +33,6 @@ class window.App extends Backbone.Model
 
   loseGame: ->
     # Notification that player busted
-    console.log('you lose!')
     # Update ScoreBoard
     bet = @get('scoreBoard').get('bet')
     purse = @get('scoreBoard').get('purse')
