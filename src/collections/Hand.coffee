@@ -47,6 +47,7 @@ class window.Hand extends Backbone.Collection
   dealerPlay: ->
     @first().flip()
     @hit() until @minScore() >= 17
+    @stand() if @minScore() < 21
 
 
 

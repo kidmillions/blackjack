@@ -39,12 +39,14 @@ describe 'hand', ->
       assert.strictEqual dealerHand.first().get('revealed'), false
 
     it 'should not call hit if the value of cards are 17 or more', ->
+      standSpy = sinon.spy Hand.prototype, 'stand'
       dealerHand.reset()
       card8.set('revealed', false)
       dealerHand.add(card8)
       dealerHand.add(card10)
       dealerHand.dealerPlay()
       assert.strictEqual hitSpy.called, false
+      assert.strictEqual standSpy.called, true
 
 
     it 'should reveal its card when the dealer start its turn', ->
@@ -59,6 +61,8 @@ describe 'hand', ->
       dealerHand.add(card4)
       dealerHand.dealerPlay()
       assert.strictEqual hitSpy.called, true
+
+
 
 
 

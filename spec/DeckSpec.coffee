@@ -15,25 +15,20 @@ describe 'deck', ->
       assert.strictEqual deck.last(), hand.hit()
       assert.strictEqual deck.length, 49
 
-  describe 'stand', ->
-    #force the dealer to start turn
-    #
+  describe "deck constructor", ->
 
-describe "deck constructor", ->
+    it "should create a card collection", ->
+      collection = new Deck()
+      assert.strictEqual collection.length, 52
 
-        it "should create a card collection", ->
-          collection = new Deck()
-          assert.strictEqual collection.length, 52
-
-        it "should create a randomly generated deck", ->
-          collection1 = new Deck()
-          collection2 = new Deck()
-          # Save for later
-
+    it "should trigger an event that the deck is out of cards", ->
+      outOfCards = sinon.spy Deck.prototype, 'outOfCards'
+      # deal a million times
+      # when deckLength = 0
+      # outOfCards triggered
+      assert.strictEqual deck.length, 0
+      assert.strictEqual outOfCards.called, true
 
 
 
-          # Cards should have value that coorelates to rank/type
-
-
-          # should not reset deck until cards exhausted
+        # should not reset deck until cards exhausted
