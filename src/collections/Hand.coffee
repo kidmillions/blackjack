@@ -51,5 +51,6 @@ class window.Hand extends Backbone.Collection
     @stand() if @minScore() < 21
 
 
-
+  isSplit: ->
+    @at(0).get 'rank' == @at(1).get 'rank'
 

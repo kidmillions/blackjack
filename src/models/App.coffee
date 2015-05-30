@@ -7,7 +7,7 @@ class window.App extends Backbone.Model
         @set 'dealerHand', deck.dealDealer()
         @set 'scoreBoard', scoreBoard = new ScoreBoard()
 
-        @get('dealerHand').on 'all', @playerEvents, @
+        @get('dealerHand').on 'all', @dealerEvents, @
         @get('playerHand').on 'all', @playerEvents, @
         @get('deck').on 'shuffle', @get('deck').makeNewDeck, @get('deck')
         @get('scoreBoard').on 'outOfMoney', @loseLife, @
@@ -34,6 +34,7 @@ class window.App extends Backbone.Model
     winGame: ->
       # Notification that player got blackjack
         # Update Score
+        alert 'You won!'
         bet = @get('scoreBoard').get('bet')
         purse = @get('scoreBoard').get('purse')
         @get('scoreBoard').set 'purse', purse + bet
@@ -45,6 +46,7 @@ class window.App extends Backbone.Model
     loseGame: ->
         # Notification that player busted
         # Update ScoreBoard
+        alert 'You Lost!'
         bet = @get('scoreBoard').get('bet')
         purse = @get('scoreBoard').get('purse')
         @get('scoreBoard').set 'purse', purse - bet
@@ -53,6 +55,7 @@ class window.App extends Backbone.Model
         @resetHands()
 
     pushGame: ->
+        alert 'Push!'
         @get('deck').checkLength()
         @resetHands()
 

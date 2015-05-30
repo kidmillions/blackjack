@@ -9,10 +9,10 @@ class window.ScoreBoardView extends Backbone.View
     @model.on('change', @render, @)
 
   template: _.template '
-  <div class="purse">Purse: <%= purse %></div>
-  <div class="bet">Bet: <%= bet %></div>
-  <div class="bets"><input name="bet" type="text" />
-  <div id="makeBet">Place Your Bet</div>	'
+  <span class="purse">Purse: <%= purse %></span>
+  <span class="bet">Current Bet: <%= bet %></span>
+  <input name="bet" type="text" placeholder="make a new bet" />
+  <div id="makeBet">Place Your Bet</div>'
 
 
   render: ->

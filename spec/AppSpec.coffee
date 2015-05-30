@@ -76,10 +76,3 @@ describe 'app', ->
       assert.strictEqual outOfCards.called, true
 
 
-
-
-# Compares hand values and designates winner
-# Triggers when Player Busts
-# Triggers when Player loses to dealer
-# Triggers when Player Wins
-

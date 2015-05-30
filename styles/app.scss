@@ -1,3 +1,22 @@
+html {
+	box-model: border-box;
+	body {
+		font-family: 'Verdana' sans-serif;
+	}
+}
+
+.group:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+.container {
+	max-width: 980px;
+	margin: 0 auto;
+}
+
 .card {
   float: left;
   border: solid 1px black;
@@ -10,42 +29,93 @@
 
 .hand {
   overflow: auto;
+  .score {
+
+	}
 }
 
-.score-board {
 
-}
 
 .player-hand-container {
-
+	float: left;
+	width: 45%;
+	padding: 10px 2.5%;
 }
 
 .dealer-hand-container {
+	float: right;
+	width: 45%;
+	padding: 10px 2.5%;
+}
+
+
+
+%button {
+	float: left;
+	margin: 0 5px;
+	padding: 3px 0;
+	border-radius: 5px;
+	border: 1px solid black;
+	width: 70px;
+	height: 25px;
+	color: white;
+	text-align: center;
+}
+.button-container {
+	float: left;
+	width: 30%;
+	padding: 10px 2.5%;
+
+	.hit-button {
+		@extend %button;
+		background-color: #CF2C19;
+		&:hover {
+			background-color: darken(#CF2C19, 10%);
+		}
+	}
+
+	.stand-button {
+		@extend %button;
+		background-color: #2C8A3F;
+		&:hover {
+			background-color: darken(#2C8A3F, 10%);
+		}
+	}
+
+	.split-button {
+		@extend %button;
+		background-color: #4462D5;
+		&:hover {
+			background-color: darken(#4462D5, 10%);
+		}
+	}
+}
+
+.score-board {
+	float: right;
+	width: 60%;
+	padding: 10px 2.5%;
 	
-}
+	.purse {
+		color: #4462D5;
+	}
 
-.hand {
-	.score {
+	.bet {
+		color: #2C8A3F
+	}
 
+
+	#makeBet {
+		@extend %button;
+		float: right;
+		width: 150px;
+		background-color: #2031A2;
+		&:hover {
+			background-color: darken(#2031A2, 10%);
+		}
 	}
 }
 
-.hit-button {
 
-}
-
-.stand-button {
-
-}
-
-.bet {
-	#make-bet {
-
-	}
-}
-
-.purse {
-
-}
 
 
