@@ -69,6 +69,13 @@ describe 'app', ->
       userHand.stand()
       assert.strictEqual dealerSpy.called, true
 
+  describe 'Deck', ->
+    xit "should trigger an event that the deck is out of cards", ->
+      outOfCards = sinon.spy Deck.prototype, 'makeNewDeck'
+      app.get('playerHand').getNewCards() for [1..25]
+      assert.strictEqual outOfCards.called, true
+
+
 
 
 # Compares hand values and designates winner

@@ -9,10 +9,15 @@ describe 'hand', ->
   card10 = null
   card4 = null
   flip = null
-  hitSpy = sinon.spy Hand.prototype, 'hit'
-
+  hitSpy = null
+  standSpy = null
+  sandbox = null
+  
 
   beforeEach ->
+    sandbox = sinon.sandbox.create()
+    standSpy = sandbox.spy Hand.prototype, 'stand'
+    hitSpy = sandbox.spy Hand.prototype, 'hit'
     deck = new Deck()
     userHand = deck.dealPlayer()
     dealerHand = deck.dealDealer()
@@ -29,6 +34,9 @@ describe 'hand', ->
       rank: 10
       suit: 2
 
+    afterEach ->
+      sandbox.restore()
+
 
   describe 'dealer hand', ->
 
@@ -39,7 +47,6 @@ describe 'hand', ->
       assert.strictEqual dealerHand.first().get('revealed'), false
 
     it 'should not call hit if the value of cards are 17 or more', ->
-      standSpy = sinon.spy Hand.prototype, 'stand'
       dealerHand.reset()
       card8.set('revealed', false)
       dealerHand.add(card8)

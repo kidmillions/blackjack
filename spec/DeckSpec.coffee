@@ -11,24 +11,14 @@ describe 'deck', ->
 
   describe 'hit', ->
     it 'should give the last card from the deck', ->
-      assert.strictEqual deck.length, 50
-      assert.strictEqual deck.last(), hand.hit()
-      assert.strictEqual deck.length, 49
+      assert.strictEqual deck.length, 48
+      lastVal = deck.last().get 'value'
+      hand.hit()
+      assert.strictEqual lastVal, hand.last().get 'value'
+      assert.strictEqual deck.length, 47
 
   describe "deck constructor", ->
 
     it "should create a card collection", ->
       collection = new Deck()
       assert.strictEqual collection.length, 52
-
-    it "should trigger an event that the deck is out of cards", ->
-      outOfCards = sinon.spy Deck.prototype, 'outOfCards'
-      # deal a million times
-      # when deckLength = 0
-      # outOfCards triggered
-      assert.strictEqual deck.length, 0
-      assert.strictEqual outOfCards.called, true
-
-
-
-        # should not reset deck until cards exhausted

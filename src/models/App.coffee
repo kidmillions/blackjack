@@ -15,9 +15,10 @@ class window.App extends Backbone.Model
         @get('playerHand').on 'stand', @get('dealerHand').dealerPlay, @get('dealerHand')
         @get('dealerHand').on 'stand', @compareScores, @
         @get('deck').on 'shuffle', @get('deck').makeNewDeck, @get('deck')
+        @get('scoreBoard').on 'outOfMoney', @loseLife, @
 
 
-    resetDeck: ->
+    resetHands: ->
         # @set 'deck', deck = new Deck()
         @get('playerHand').getNewCards()
         @get('dealerHand').getNewCards()
@@ -31,7 +32,7 @@ class window.App extends Backbone.Model
         @get('scoreBoard').set 'purse', purse + bet
         # Game to be reset
         @get('deck').checkLength()
-        @resetDeck()
+        @resetHands()
 
 
     loseGame: ->
@@ -42,12 +43,15 @@ class window.App extends Backbone.Model
         @get('scoreBoard').set 'purse', purse - bet
         # Game to be reset
         @get('deck').checkLength()
-        @resetDeck()
+        @resetHands()
 
     pushGame: ->
         @get('deck').checkLength()
-        @resetDeck()
+        @resetHands()
 
+    loseLife: ->
+        alert 'you are seriously out of money. don\'t do that again.'
+        @get('scoreBoard').set 'purse', 100000
 
     compareScores: ->
         userHand = @get('playerHand')
