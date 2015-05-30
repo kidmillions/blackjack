@@ -8,6 +8,11 @@ class window.CardView extends Backbone.View
   render: ->
     @$el.children().detach()
     @$el.html @template
+
+
+    
+    @$el.addClass('animated pulse')
+    
     if @model.get 'revealed'	
     	@$el.find('img').attr('src', "./img/cards/" + @model.get('rankName') + "-" + @model.get('suitName') + ".png") 
     else
