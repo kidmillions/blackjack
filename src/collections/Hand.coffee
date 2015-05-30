@@ -30,23 +30,24 @@ class window.Hand extends Backbone.Collection
     [@minScore(), @minScore() + 10 * @hasAce()]
 
   busted: ->
-    console.log(@minScore())
     @trigger('busted', @)
     # if score is higher than 21
     #   trigger an event on collection, 'busted'
 
   blackjack: ->
-    console.log(@minScore())
     @trigger('blackjack', @)
-    console.log('blackjack')
 
   getNewCards: ->
     @reset()
     #deal new cards when current deck
     @hit()
     @hit()
+    @first().set 'revealed', false if @isDealer
 
   dealerPlay: ->
-    debugger
-    if(@isDealer) then array.first().set('revealed', true)
+    @first().flip()
+    @hit() until @minScore() >= 17
+
+
+
 

@@ -9,6 +9,8 @@ describe 'hand', ->
   card10 = null
   card4 = null
   flip = null
+  hitSpy = sinon.spy Hand.prototype, 'hit'
+
 
   beforeEach ->
     deck = new Deck()
@@ -33,13 +35,31 @@ describe 'hand', ->
     it 'should have two cards', ->
       assert.strictEqual dealerHand.length, 2
 
-    it 'should have the first card flipped', ->
+    it 'should have the first card flipped when initalized', ->
       assert.strictEqual dealerHand.first().get('revealed'), false
 
+    it 'should not call hit if the value of cards are 17 or more', ->
+      dealerHand.reset()
+      card8.set('revealed', false)
+      dealerHand.add(card8)
+      dealerHand.add(card10)
+      dealerHand.dealerPlay()
+      assert.strictEqual hitSpy.called, false
+
+
     it 'should reveal its card when the dealer start its turn', ->
-      userHand.stand()
+      dealerHand.dealerPlay()
       flip = dealerHand.first().get('revealed')
       assert.strictEqual flip, true
+
+
+    it 'should hit if the value of cards are less than 17', ->
+      dealerHand.reset()
+      dealerHand.add(card8)
+      dealerHand.add(card4)
+      dealerHand.dealerPlay()
+      assert.strictEqual hitSpy.called, true
+
 
 
 

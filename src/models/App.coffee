@@ -8,21 +8,21 @@ class window.App extends Backbone.Model
     @set 'scoreBoard', scoreBoard = new ScoreBoard()
 
     # @listenTo @get('playerHand'), 'busted', @loseGame
+    @get('dealerHand').on 'blackjack', @loseGame, @
+    @get('dealerHand').on 'busted', @winGame, @
     @get('playerHand').on 'busted', @loseGame, @
     @get('playerHand').on 'blackjack', @winGame, @
-    @get('playerHand').on 'stand', @get('dealerHand').dealerPlay, @
+    @get('playerHand').on 'stand', @get('dealerHand').dealerPlay, @get('dealerHand')
 
 
   resetDeck: ->
     # @set 'deck', deck = new Deck()
     @get('playerHand').getNewCards()
-    @set 'dealerHand', @get('deck').dealDealer()
-    console.log(@get('playerHand'))
+    @get('dealerHand').getNewCards()
 
 
   winGame: ->
   # Notification that player got blackjack
-    console.log('you win!')
     # Update Score
     bet = @get('scoreBoard').get('bet')
     purse = @get('scoreBoard').get('purse')
