@@ -10,3 +10,12 @@ class window.ScoreBoard extends Backbone.Model
     checkForBankrupt: ->
     	if (@get 'purse') <= 0
     		@trigger('outOfMoney', @)
+
+   	resetPurse: ->
+   		@set 'purse', 100000
+
+   	scoreResults: (won) ->
+   		if won
+   			@set 'purse', (@get 'purse') + (@get 'bet')
+   		else
+   			@set 'purse', (@get 'purse') - (@get 'bet')

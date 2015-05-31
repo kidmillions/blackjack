@@ -26,31 +26,20 @@ class window.App extends Backbone.Model
             when 'stand' then @compareScores()
 
     resetHands: ->
-        # @set 'deck', deck = new Deck()
         @get('playerHand').getNewCards()
         @get('dealerHand').getNewCards()
 
 
     winGame: ->
-      # Notification that player got blackjack
-        # Update Score
         alert 'You won!'
-        bet = @get('scoreBoard').get('bet')
-        purse = @get('scoreBoard').get('purse')
-        @get('scoreBoard').set 'purse', purse + bet
-        # Game to be reset
+        @get('scoreBoard').scoreResults(true)
         @get('deck').checkLength()
         @resetHands()
 
 
     loseGame: ->
-        # Notification that player busted
-        # Update ScoreBoard
         alert 'You Lost!'
-        bet = @get('scoreBoard').get('bet')
-        purse = @get('scoreBoard').get('purse')
-        @get('scoreBoard').set 'purse', purse - bet
-        # Game to be reset
+        @get('scoreBoard').scoreResults(false)
         @get('deck').checkLength()
         @resetHands()
 
@@ -61,7 +50,10 @@ class window.App extends Backbone.Model
 
     loseLife: ->
         alert 'you are seriously out of money. don\'t do that again.'
-        @get('scoreBoard').set 'purse', 100000
+        @get('scoreBoard').resetPurse()
+
+
+        
 
     compareScores: ->
         userHand = @get('playerHand')
@@ -72,6 +64,11 @@ class window.App extends Backbone.Model
 
     split: ->
         @set 'playerHand2', new Hand [@get('playhand2').pop()], @
+        # deal one new card to each hand
+        # 
+        # play on playerHand standing or busting
+        # if also standing, compare top values
+        # compare highest hand to dealers
 
 
 
