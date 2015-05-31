@@ -19,3 +19,6 @@ class window.ScoreBoard extends Backbone.Model
    			@set 'purse', (@get 'purse') + (@get 'bet')
    		else
    			@set 'purse', (@get 'purse') - (@get 'bet')
+
+   	double: ->
+   		@set 'bet', @get('bet')*2

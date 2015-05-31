@@ -52,7 +52,7 @@ html {
 
 %button {
 	float: left;
-	margin: 0 5px;
+	margin: 0 3px;
 	padding: 3px 0;
 	border-radius: 5px;
 	border: 1px solid black;
@@ -89,6 +89,17 @@ html {
 			background-color: darken(#4462D5, 10%);
 		}
 	}
+
+	.double-button {
+		@extend %button;
+		width: 130px;
+		background-color: #D33BD5;
+		&:hover {
+			background-color: darken(#D33BD5, 10%);
+		}
+	}
+
+	
 }
 
 .score-board {

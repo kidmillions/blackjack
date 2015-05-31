@@ -6,7 +6,7 @@ class window.App extends Backbone.Model
         @set 'playerHand', deck.dealPlayer()
         @set 'dealerHand', deck.dealDealer()
         @set 'scoreBoard', scoreBoard = new ScoreBoard()
-
+        @set 'playing', false
         @get('dealerHand').on 'all', @dealerEvents, @
         @get('playerHand').on 'all', @playerEvents, @
         @get('deck').on 'shuffle', @get('deck').makeNewDeck, @get('deck')
@@ -18,6 +18,7 @@ class window.App extends Backbone.Model
             when 'busted' then @loseGame()
             when 'blackjack' then @winGame()
             when 'stand' then @get('dealerHand').dealerPlay()
+            when 'hit' then @set('playing', true)
 
     dealerEvents: (event, hand) ->
         switch event
@@ -34,6 +35,7 @@ class window.App extends Backbone.Model
         alert 'You won!'
         @get('scoreBoard').scoreResults(true)
         @get('deck').checkLength()
+        @set('playing', false)
         @resetHands()
 
 
@@ -41,11 +43,13 @@ class window.App extends Backbone.Model
         alert 'You Lost!'
         @get('scoreBoard').scoreResults(false)
         @get('deck').checkLength()
+        @set('playing', false)
         @resetHands()
 
     pushGame: ->
         alert 'Push!'
         @get('deck').checkLength()
+        @set('playing', false)
         @resetHands()
 
     loseLife: ->
@@ -61,6 +65,13 @@ class window.App extends Backbone.Model
         maxUserScore = Math.max(userHand.scores[0], userHand.scores[1])
         userScore = if maxUserScore < 21 then maxUserScore else userHand.scores[0]
         if userScore > dealerHandScore then @winGame() else if userScore == dealerHandScore then @pushGame() else @loseGame()
+
+
+    doubleBet: ->
+        @get('scoreBoard').double();
+        @get('playerHand').hit()
+        @get('playerHand').stand();
+
 
     split: ->
         @set 'playerHand2', new Hand [@get('playhand2').pop()], @

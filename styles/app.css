@@ -31,9 +31,9 @@ html {
   width: 45%;
   padding: 10px 2.5%; }
 
-.button-container .hit-button, .button-container .stand-button, .button-container .split-button, .score-board #makeBet {
+.button-container .hit-button, .button-container .stand-button, .button-container .split-button, .button-container .double-button, .score-board #makeBet {
   float: left;
-  margin: 0 5px;
+  margin: 0 3px;
   padding: 3px 0;
   border-radius: 5px;
   border: 1px solid black;
@@ -58,6 +58,11 @@ html {
     background-color: #4462D5; }
     .button-container .split-button:hover {
       background-color: #2a48bc; }
+  .button-container .double-button {
+    width: 130px;
+    background-color: #D33BD5; }
+    .button-container .double-button:hover {
+      background-color: #b427b6; }
 
 .score-board {
   float: right;
